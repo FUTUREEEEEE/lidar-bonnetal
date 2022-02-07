@@ -171,13 +171,13 @@ class SemanticKitti(Dataset):
             ) / self.sensor_img_stds[:, None, None]
     proj = proj * proj_mask.float()
 
+    # get name and sequence
     additional_data_path = '/media/cfzhao/Data/sematic_kitti/my_add_data/sequences'
-    additional_data_path = os.path.join(additional_data_path, scan_file.split('/')[-3], scan_file.split('/')[-2],
-                                        scan_file.split('/')[-1].split('.')[0]+".pt")
+    additional_data_path = os.path.join(additional_data_path, scan_file.split('/')[-3], scan_file.split('/')[-2],scan_file.split('/')[-1].split('.')[0]+".pt")
     proj_seg = torch.from_numpy(torch.load(additional_data_path))
     proj = torch.cat([proj, proj_seg.float().view(1, 64, 2048).clone()], 0)
 
-    # get name and sequence
+    #print("proj shape:",proj.shape)
     path_norm = os.path.normpath(scan_file)
     path_split = path_norm.split(os.sep)
     path_seq = path_split[-3]

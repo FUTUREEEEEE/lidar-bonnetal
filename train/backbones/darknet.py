@@ -9,7 +9,7 @@ import torch.nn.functional as F
 class BasicBlock(nn.Module):
   def __init__(self, inplanes, planes, bn_d=0.1):
     super(BasicBlock, self).__init__()
-    self.conv1 = nn.Conv2d(6, planes[0], kernel_size=1,
+    self.conv1 = nn.Conv2d(inplanes, planes[0], kernel_size=1,
                            stride=1, padding=0, bias=False)
     self.bn1 = nn.BatchNorm2d(planes[0], momentum=bn_d)
     self.relu1 = nn.LeakyReLU(0.1)
@@ -70,7 +70,8 @@ class Backbone(nn.Module):
     if self.use_remission:
       self.input_depth += 1
       self.input_idxs.append(4)
-    print("Depth of backbone input = ", self.input_depth)
+    self.input_depth+=1 
+    print("Depth of backbone input =  (in darknet.py)", self.input_depth)
 
     # stride play
     self.strides = [2, 2, 2, 2, 2]
@@ -156,7 +157,7 @@ class Backbone(nn.Module):
 
   def forward(self, x):
     # filter input
-    x = x[:, self.input_idxs]
+    #x = x[:, self.input_idxs]
 
     # run cnn
     # store for skip connections

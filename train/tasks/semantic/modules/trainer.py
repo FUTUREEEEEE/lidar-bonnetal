@@ -88,6 +88,7 @@ class Trainer():
                                self.path)
 
     # GPU?
+    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     self.gpu = False
     self.multi_gpu = False
     self.n_gpus = 0

@@ -19,7 +19,7 @@ import numpy as np
 
 from tasks.semantic.modules.segmentator import *
 from tasks.semantic.postproc.KNN import KNN
-
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 class User():
   def __init__(self, ARCH, DATA, datadir, logdir, modeldir):
